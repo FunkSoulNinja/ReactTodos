@@ -5,7 +5,7 @@ class Todo extends React.Component {
         const { id, text } = this.props;
         return (
             <div>
-                {id}: {text}
+                <p>{id}: {text}</p>
             </div>
         );
     }
