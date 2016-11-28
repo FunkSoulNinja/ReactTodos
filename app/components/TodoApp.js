@@ -12,10 +12,23 @@ class TodoApp extends Component {
             showCompleted: false,
             searchText: '',
             todos: [
-                { id: uuid(), text: "Walk the dog" },
-                { id: uuid(), text: "Clean the yard" },
-                { id: uuid(), text: "Finish Todo App" },
-                { id: uuid(), text: "Get good" },
+                {
+                    id: uuid(),
+                    text: "Walk the dog",
+                    completed: false
+                 }, {
+                    id: uuid(),
+                    text: "Clean the yard",
+                    completed: true
+                 }, {
+                    id: uuid(),
+                    text: "Finish Todo App",
+                    completed: true
+                 }, {
+                    id: uuid(),
+                    text: "Get good",
+                    completed: false
+                 }
             ]
         };
     }
@@ -23,9 +36,23 @@ class TodoApp extends Component {
         this.setState({
             todos: [
                 ...this.state.todos,
-                { id: uuid(), text }
+                {
+                    id: uuid(),
+                    text,
+                    completed: false
+                  }
             ]
         });
+    }
+    handleToggle(id) {
+        const updatedTodos = this.state.todos.map((todo) => {
+            if (todo.id === id) {
+                todo.completed = !todo.completed;
+            }
+            return todo
+        });
+
+        this.setState({ todos: updatedTodos });
     }
     handleSearch(showCompleted, searchText) {
         this.setState({
@@ -37,7 +64,7 @@ class TodoApp extends Component {
         return (
             <div>
                 <TodoSearch onSearch={this.handleSearch.bind(this)} />
-                <TodoList todos={this.state.todos} />
+                <TodoList todos={this.state.todos} onToggle={this.handleToggle.bind(this)}/>
                 <AddTodo handleAddTodo={this.handleAddTodo.bind(this)} />
             </div>
         );
