@@ -13,7 +13,7 @@ class AddTodo extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="container__footer">
                 <form ref="form" onSubmit={this.onSubmit.bind(this)}>
                     <input type="text" ref="input" placeholder="insert todo" />
                     <button className="button expanded">Add todo</button>
