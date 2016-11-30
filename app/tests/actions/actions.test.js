@@ -4,7 +4,7 @@ import {
     addTodo,
     toggleShowCompleted,
     toggleTodo
-} from '../../actions/actions';
+} from '../../actions';
 import {
     SET_SEARCH_TEXT,
     ADD_TODO,
