@@ -1,24 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { Route, Router, IndexRoute, hashHistory } from 'react-router';
 
 import TodoApp from 'TodoApp';
-import {
-    setSearchText,
-    addTodo,
-    toggleShowCompleted,
-    toggleTodo
-} from './actions';
+import * as actions from './actions';
 
 const store = require('./store/configureStore').configure();
 
 store.subscribe(() => {
-    console.log('New state: ', store.getState());
+    console.log('New state', store.getState());
 });
 
-store.dispatch(addTodo('Understand this old syntax.'));
-store.dispatch(setSearchText('syntax'));
-store.dispatch(toggleShowCompleted());
+store.dispatch(actions.addTodo('Do this ting'));
+store.dispatch(actions.setSearchText('ting'));
+store.dispatch(actions.toggleShowCompleted());
 
 // Load Foundation
 $(document).foundation();
@@ -27,6 +23,8 @@ $(document).foundation();
 require('style!css!sass!applicationStyles');
 
 ReactDOM.render(
-    <TodoApp />,
+    <Provider store={store}>
+        <TodoApp />
+    </Provider>,
     document.getElementById('app')
 );
