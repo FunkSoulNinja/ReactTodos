@@ -1,5 +1,7 @@
 import expect from 'expect';
 import df from 'deep-freeze-strict';
+import uuid from 'node-uuid';
+import moment from 'moment';
 
 import {
     SET_SEARCH_TEXT,
@@ -10,7 +12,7 @@ import {
 
 import {
     mainReducer,
-} from '../../reducers';
+} from '../../reducers/index';
 
 describe('Reducers', () => {
     describe('searchTextReducer', () => {
@@ -19,9 +21,9 @@ describe('Reducers', () => {
                 type: SET_SEARCH_TEXT,
                 payload: 'dog'
             };
-            const res = mainReducer(df(''), df(action));
+            const res = mainReducer(df({}), df(action));
 
-            expect(res).toEqual(action.payload);
+            expect(res.searchText).toEqual(action.payload);
         });
 
         it('should flip the boolean value of showCompleted', () => {
@@ -30,7 +32,36 @@ describe('Reducers', () => {
             };
             const res = mainReducer(df({ showCompleted: false }), df(action));
 
-            expect(res).toEqual(true);
+            expect(res.showCompleted).toEqual(true);
+        });
+
+        it('should add new todo', () => {
+            const action = {
+                type: ADD_TODO,
+                payload: 'walk the dog'
+            };
+            const res = mainReducer(df({ todos: [] }), df(action));
+
+            expect(res.todos.length).toEqual(1);
+            expect(res.todos[0].text).toEqual(action.payload);
+        });
+
+        it('should toggle completed value and update completedAt', () => {
+            const testTodo = {
+                completed: true,
+                completedAt: 126,
+                createdAt: 123,
+                id: uuid(),
+                text: 'Finish this test'
+            };
+            const action = {
+                type: TOGGLE_TODO,
+                payload: testTodo.id
+            };
+            const res = mainReducer(df({ todos: [testTodo] }), df(action));
+
+            expect(res.todos[0].completed).toEqual(!testTodo.completed);
+            expect(res.todos[0].completedAt).toEqual(undefined);
         });
     });
 });
