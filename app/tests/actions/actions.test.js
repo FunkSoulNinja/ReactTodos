@@ -2,12 +2,14 @@ import expect from 'expect';
 import {
     setSearchText,
     addTodo,
+    addTodos,
     toggleShowCompleted,
     toggleTodo
 } from '../../actions';
 import {
     SET_SEARCH_TEXT,
     ADD_TODO,
+    ADD_TODOS,
     TOGGLE_SHOW_COMPLETED,
     TOGGLE_TODO
 } from '../../actions/types';
@@ -30,6 +32,23 @@ describe('Actions', () => {
             payload: 'Thing to do'
         };
         const res = addTodo(action.payload);
+
+        expect(res).toEqual(action);
+    });
+
+    it('should generate addTodos action object', () => {
+        const todos = [{
+            id: '111',
+            text: 'anything',
+            completed: false,
+            completedAt: undefined,
+            createdAt: 33000
+        }];
+        const action = {
+            type: ADD_TODOS,
+            payload: todos
+        };
+        const res = addTodos(todos);
 
         expect(res).toEqual(action);
     });

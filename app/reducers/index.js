@@ -4,6 +4,7 @@ import moment from 'moment';
 import {
     SET_SEARCH_TEXT,
     ADD_TODO,
+    ADD_TODOS,
     TOGGLE_SHOW_COMPLETED,
     TOGGLE_TODO
 } from '../actions/types';
@@ -30,6 +31,11 @@ export const mainReducer = (state = INITIAL_STATE, action) => {
                     createdAt: moment().unix(),
                     completedAt: undefined
                   }] };
+        case ADD_TODOS:
+            return {
+                ...state,
+                todos: [...action.payload]
+            };
         case TOGGLE_TODO:
             return {
                 ...state,

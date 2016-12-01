@@ -6,6 +6,7 @@ import moment from 'moment';
 import {
     SET_SEARCH_TEXT,
     ADD_TODO,
+    ADD_TODOS,
     TOGGLE_SHOW_COMPLETED,
     TOGGLE_TODO
 } from '../../actions/types';
@@ -62,6 +63,24 @@ describe('Reducers', () => {
 
             expect(res.todos[0].completed).toEqual(!testTodo.completed);
             expect(res.todos[0].completedAt).toEqual(undefined);
+        });
+
+        it('should add existing todos', () => {
+            const todos = [{
+                id: '111',
+                text: 'anything',
+                completed: false,
+                completedAt: undefined,
+                createdAt: 33000
+            }];
+            const action = {
+                type: ADD_TODOS,
+                payload: todos
+            };
+            const res = mainReducer(df({ todos: [] }), df(action));
+
+            expect(res.todos.length).toEqual(1);
+            expect(res.todos[0]).toEqual(todos[0]);
         });
     });
 });

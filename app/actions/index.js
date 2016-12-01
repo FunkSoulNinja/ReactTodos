@@ -1,6 +1,7 @@
 import {
     SET_SEARCH_TEXT,
     ADD_TODO,
+    ADD_TODOS,
     TOGGLE_SHOW_COMPLETED,
     TOGGLE_TODO
 } from './types';
@@ -16,6 +17,13 @@ export const addTodo = (todo) => {
     return {
         type: ADD_TODO,
         payload: todo
+    };
+};
+
+export const addTodos = (todos) => {
+    return {
+        type: ADD_TODOS,
+        payload: todos
     };
 };
 
