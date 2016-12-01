@@ -12,9 +12,6 @@ store.subscribe(() => {
     console.log('New state', store.getState());
 });
 
-store.dispatch(actions.addTodo('Do this ting'));
-store.dispatch(actions.setSearchText('ting'));
-store.dispatch(actions.toggleShowCompleted());
 
 // Load Foundation
 $(document).foundation();

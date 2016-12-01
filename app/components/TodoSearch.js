@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-class TodoSearch extends Component {
-    handleSearch() {
-        const showCompleted = this.refs.showCompleted.checked;
-        const searchText = this.refs.searchText.value;
+import {
+    setSearchText,
+    toggleShowCompleted
+} from '../actions';
 
-        this.props.onSearch(showCompleted, searchText);
-    }
+export class TodoSearch extends Component {
     render() {
+        const { dispatch, showCompleted, searchText } = this.props;
         return (
             <div className="container__header">
                 <div>
-                    <input onChange={this.handleSearch.bind(this)} type="search" ref="searchText" placeholder="Search todos" />
+                    <input
+                        onChange={() => {
+                            const searchTextInput = this.refs.searchText.value;
+                            dispatch(setSearchText(searchTextInput));
+                        }}
+                        type="search"
+                        ref="searchText"
+                        value={searchText}
+                        placeholder="Search todos"
+                    />
                 </div>
                 <div>
                     <label>
-                        <input type="checkbox" ref="showCompleted" onChange={this.handleSearch.bind(this)} />
+                        <input
+                            type="checkbox"
+                            ref="showCompleted"
+                            checked={showCompleted}
+                            onChange={() => dispatch(toggleShowCompleted())}
+                        />
                         Show completed todos
                     </label>
                 </div>
@@ -24,4 +39,10 @@ class TodoSearch extends Component {
     }
 }
 
-export default TodoSearch;
+const mapStateToProps = state => {
+    const { showCompleted, searchText } = state.app;
+
+    return { showCompleted, searchText };
+};
+
+export default connect(mapStateToProps)(TodoSearch);

@@ -4,10 +4,10 @@ const TestUtils = require('react-addons-test-utils');
 const expect = require('expect');
 const $ = require('jQuery');
 import { Provider } from 'react-redux';
-
 import { configure } from '../../store/configureStore'
+
 import ConnectedTodoList, { TodoList } from 'TodoList';
-import ConnectedTodo, { Todo } from 'Todo';
+import ConnectedTodo from 'Todo';
 
 describe('TodoList', () => {
     it('should exist', () => {
