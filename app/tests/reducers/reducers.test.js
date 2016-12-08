@@ -39,12 +39,17 @@ describe('Reducers', () => {
         it('should add new todo', () => {
             const action = {
                 type: ADD_TODO,
-                payload: 'walk the dog'
+                payload: {
+                    id: 'abc123',
+                    text: 'Something to do',
+                    completed: false,
+                    createdAt: 985321
+                }
             };
             const res = mainReducer(df({ todos: [] }), df(action));
 
             expect(res.todos.length).toEqual(1);
-            expect(res.todos[0].text).toEqual(action.payload);
+            expect(res.todos[0]).toEqual(action.payload);
         });
 
         it('should toggle completed value and update completedAt', () => {

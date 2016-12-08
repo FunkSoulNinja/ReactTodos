@@ -24,13 +24,7 @@ export const mainReducer = (state = INITIAL_STATE, action) => {
         case ADD_TODO:
             return {
                 ...state,
-                todos: [...state.todos, {
-                    id: uuid(),
-                    text: action.payload,
-                    completed: false,
-                    createdAt: moment().unix(),
-                    completedAt: undefined
-                  }] };
+                todos: [...state.todos, action.payload] };
         case ADD_TODOS:
             return {
                 ...state,

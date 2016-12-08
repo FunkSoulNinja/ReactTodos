@@ -28,6 +28,7 @@ module.exports = {
             './app/api'
         ],
         alias: {
+            app: 'app',
             Main: 'app/components/Main.js',
             actions: 'app/actions/actions.js',
             applicationStyles: 'app/styles/app.scss'
@@ -42,7 +43,7 @@ module.exports = {
                     presets: ["react", "es2015", 'stage-0']
                 },
                 test: /\.js?$/,
-                exclude: /(node_modules | bower_components)/
+                exclude: /(node_modules|bower_components)/
             }
         ]
     },

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { addTodo } from '../actions';
+import * as actions from '../actions';
 
 export class AddTodo extends Component {
     onSubmit(e) {
         e.preventDefault();
         const todoText = this.refs.input.value;
         if (todoText.length > 0) {
-            this.props.dispatch(addTodo(todoText));
+            this.props.dispatch(actions.startAddTodo(todoText));
             this.refs.input.value = '';
         } else {
             this.refs.input.focus();

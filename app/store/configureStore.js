@@ -1,4 +1,6 @@
-import { combineReducers, createStore, compose } from 'redux';
+import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
+
 import { mainReducer } from '../reducers';
 
 export const configure = (initialState = {}) => {
@@ -7,6 +9,7 @@ export const configure = (initialState = {}) => {
     });
 
     const store = createStore(reducer, initialState, compose(
+        applyMiddleware(reduxThunk),
         window.devToolsExtension ? window.devToolsExtension() : f => f
     ));
 

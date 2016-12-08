@@ -1,11 +1,8 @@
+import configureMockStore from 'redux-mock-store';
+import reduxThunk from 'redux-thunk';
 import expect from 'expect';
-import {
-    setSearchText,
-    addTodo,
-    addTodos,
-    toggleShowCompleted,
-    toggleTodo
-} from '../../actions';
+
+import * as actions from '../../actions';
 import {
     SET_SEARCH_TEXT,
     ADD_TODO,
@@ -14,6 +11,7 @@ import {
     TOGGLE_TODO
 } from '../../actions/types';
 
+const createMockStore = configureMockStore([reduxThunk]);
 
 describe('Actions', () => {
     it('should generate search text action', () => {
@@ -21,7 +19,7 @@ describe('Actions', () => {
             type: SET_SEARCH_TEXT,
             payload: 'Some search text'
         };
-        const res = setSearchText(action.payload);
+        const res = actions.setSearchText(action.payload);
 
         expect(res).toEqual(action);
     });
@@ -29,11 +27,29 @@ describe('Actions', () => {
     it('should generate add todo action', () => {
         const action = {
             type: ADD_TODO,
-            payload: 'Thing to do'
+            payload: {
+                id: '123abc',
+                text: 'Anything we like',
+                completed: false,
+                createdAt: 0
+            }
         };
-        const res = addTodo(action.payload);
+
+        const res = actions.addTodo(action.payload);
 
         expect(res).toEqual(action);
+    });
+
+    it('should create todo and dispatch ADD_TODO', (done) => {
+        const store = createMockStore({});
+        const todoText = 'My todo item';
+
+        store.dispatch(actions.startAddTodo(todoText)).then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toInclude({ type: ADD_TODO });
+            expect(actions[0].payload).toInclude({ text: todoText });
+            done();
+        }).catch(done);
     });
 
     it('should generate addTodos action object', () => {
@@ -48,7 +64,7 @@ describe('Actions', () => {
             type: ADD_TODOS,
             payload: todos
         };
-        const res = addTodos(todos);
+        const res = actions.addTodos(todos);
 
         expect(res).toEqual(action);
     });
@@ -57,7 +73,7 @@ describe('Actions', () => {
         const action = {
             type: TOGGLE_SHOW_COMPLETED,
         };
-        const res = toggleShowCompleted(action.payload);
+        const res = actions.toggleShowCompleted(action.payload);
 
         expect(res).toEqual(action);
     });
@@ -67,7 +83,7 @@ describe('Actions', () => {
             type: TOGGLE_TODO,
             payload: 123
         };
-        const res = toggleTodo(action.payload);
+        const res = actions.toggleTodo(action.payload);
 
         expect(res).toEqual(action);
     });
