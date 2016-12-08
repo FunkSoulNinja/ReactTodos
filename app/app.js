@@ -14,9 +14,11 @@ const store = require('./store/configureStore').configure();
 //     console.log('New state', state);
 //     TodoAPI.setTodos(state.todos);
 // });
+//
+// const initialTodos = TodoAPI.getTodos();
+// store.dispatch(actions.addTodos(initialTodos));
 
-const initialTodos = TodoAPI.getTodos();
-store.dispatch(actions.addTodos(initialTodos));
+store.dispatch(actions.startAddTodos());
 
 // Load Foundation
 $(document).foundation();

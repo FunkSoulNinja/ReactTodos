@@ -1,5 +1,6 @@
 import firebase, { firebaseRef } from 'app/firebase';
 import moment from 'moment';
+import _ from 'lodash';
 
 import {
     SET_SEARCH_TEXT,
@@ -24,7 +25,7 @@ export const addTodo = (todo) => {
 };
 
 export const startAddTodo = (text) => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         const todo = {
             text,
             completed: false,
@@ -47,6 +48,18 @@ export const addTodos = (todos) => {
     };
 };
 
+export const startAddTodos = () => {
+    return (dispatch) => {
+        const todosRef = firebaseRef.child('todos');
+
+        return todosRef.once('value').then((s) => {
+            dispatch(addTodos(_.map(s.val(), (val, id) => {
+                return { ...val, id };
+            })));
+        });
+    };
+};
+
 export const toggleShowCompleted = () => {
     return {
         type: TOGGLE_SHOW_COMPLETED,
@@ -64,7 +77,7 @@ export const updateTodo = (id, updates) => {
 };
 
 export const startToggleTodo = (id, completed) => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         const todoRef = firebaseRef.child(`todos/${id}`);
         const updates = {
             completed,
