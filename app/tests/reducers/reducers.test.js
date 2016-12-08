@@ -8,7 +8,7 @@ import {
     ADD_TODO,
     ADD_TODOS,
     TOGGLE_SHOW_COMPLETED,
-    TOGGLE_TODO
+    UPDATE_TODO
 } from '../../actions/types';
 
 import {
@@ -61,13 +61,17 @@ describe('Reducers', () => {
                 text: 'Finish this test'
             };
             const action = {
-                type: TOGGLE_TODO,
-                payload: testTodo.id
+                type: UPDATE_TODO,
+                payload: {
+                    id: testTodo.id,
+                    updates: { completed: false, completedAt: null }
+                }
             };
             const res = mainReducer(df({ todos: [testTodo] }), df(action));
 
             expect(res.todos[0].completed).toEqual(!testTodo.completed);
             expect(res.todos[0].completedAt).toEqual(undefined);
+            expect(res.todos[0].text).toEqual(testTodo.text);
         });
 
         it('should add existing todos', () => {

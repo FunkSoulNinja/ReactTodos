@@ -6,7 +6,7 @@ import {
     ADD_TODO,
     ADD_TODOS,
     TOGGLE_SHOW_COMPLETED,
-    TOGGLE_TODO
+    UPDATE_TODO
 } from './types';
 
 export const setSearchText = (searchText) => {
@@ -53,9 +53,26 @@ export const toggleShowCompleted = () => {
     };
 };
 
-export const toggleTodo = (id) => {
+export const updateTodo = (id, updates) => {
     return {
-        type: TOGGLE_TODO,
-        payload: id
+        type: UPDATE_TODO,
+        payload: {
+            id,
+            updates
+        }
+    };
+};
+
+export const startToggleTodo = (id, completed) => {
+    return (dispatch, getState) => {
+        const todoRef = firebaseRef.child(`todos/${id}`);
+        const updates = {
+            completed,
+            completedAt: completed ? moment().unix() : null
+        };
+
+        return todoRef.update(updates).then(() => {
+            dispatch(updateTodo(id, updates));
+        });
     };
 };

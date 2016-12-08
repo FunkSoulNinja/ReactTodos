@@ -2,9 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import {
-    toggleTodo
-} from '../actions';
+import * as actions from '../actions';
 
 export class Todo extends React.Component {
     render() {
@@ -22,7 +20,7 @@ export class Todo extends React.Component {
             return message + moment.unix(timestamp).format('MMM Do YYYY @ h:mm a');
         };
         return (
-            <div className={todoClassName} onClick={() => dispatch(toggleTodo(id))} >
+            <div className={todoClassName} onClick={() => dispatch(actions.startToggleTodo(id, !completed))} >
                 <div>
                     <input type="checkbox" checked={completed} />
                 </div>

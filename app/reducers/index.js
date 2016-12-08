@@ -6,7 +6,7 @@ import {
     ADD_TODO,
     ADD_TODOS,
     TOGGLE_SHOW_COMPLETED,
-    TOGGLE_TODO
+    UPDATE_TODO
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -30,18 +30,12 @@ export const mainReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 todos: [...action.payload]
             };
-        case TOGGLE_TODO:
+        case UPDATE_TODO:
             return {
                 ...state,
                 todos: state.todos.map(todo => {
-                    if (todo.id === action.payload) {
-                        let nextCompleted = !todo.completed;
-
-                        return {
-                            ...todo,
-                             completed: nextCompleted,
-                             completedAt: nextCompleted ? moment().unix() : undefined
-                         };
+                    if (todo.id === action.payload.id) {
+                        return { ...todo, ...action.payload.updates };
                     } else {
                         return todo;
                     }
