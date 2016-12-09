@@ -6,6 +6,7 @@ import { Route, Router, IndexRoute, hashHistory } from 'react-router';
 import TodoApp from 'TodoApp';
 import * as actions from './actions';
 import TodoAPI from './api/TodoAPI';
+import $ from 'jquery';
 
 const store = require('./store/configureStore').configure();
 

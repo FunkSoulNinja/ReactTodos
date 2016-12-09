@@ -2,7 +2,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 const expect = require('expect');
-const $ = require('jQuery');
+const $ = require('jquery');
 
 import { TodoSearch } from 'TodoSearch';
 import {

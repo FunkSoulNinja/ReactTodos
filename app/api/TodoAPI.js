@@ -1,4 +1,4 @@
-import $ from 'jQuery';
+import $ from 'jquery';
 
 module.exports = {
     filterTodos: function (todos, showCompleted, searchText) {
