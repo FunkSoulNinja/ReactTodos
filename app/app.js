@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router, IndexRoute, hashHistory } from 'react-router';
+import $ from 'jquery';
 
 import TodoApp from 'TodoApp';
 import * as actions from './actions';
 import TodoAPI from './api/TodoAPI';
-import $ from 'jquery';
 
 const store = require('./store/configureStore').configure();
 
@@ -22,7 +22,7 @@ const store = require('./store/configureStore').configure();
 store.dispatch(actions.startAddTodos());
 
 // Load Foundation
-$(document).foundation();
+// $(document).foundation();
 
 // App styles
 require('style!css!sass!applicationStyles');

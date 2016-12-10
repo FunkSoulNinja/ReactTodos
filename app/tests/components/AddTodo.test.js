@@ -5,7 +5,6 @@ const expect = require('expect');
 const $ = require('jquery');
 
 import { AddTodo } from '../../components/AddTodo';
-import { ADD_TODO } from '../../actions/types';
 import * as actions from '../../actions';
 
 describe('AddTodo', () => {

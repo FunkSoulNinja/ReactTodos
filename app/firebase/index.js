@@ -2,11 +2,11 @@ import firebase from 'firebase';
 
 try {
     const config = {
-        apiKey: "AIzaSyC4lJUF2jCaKrJQpqmrLsjsUGaeyx9rlcg",
-        authDomain: "auth-73a05.firebaseapp.com",
-        databaseURL: "https://auth-73a05.firebaseio.com",
-        storageBucket: "auth-73a05.appspot.com",
-        messagingSenderId: "816206983527"
+        apiKey: process.env.API_KEY,
+        authDomain: process.env.AUTH_DOMAIN,
+        databaseURL: process.env.DATABASE_URL,
+        storageBucket: process.env.STORAGE_BUCKET,
+        messagingSenderId: process.env.MESSAGING_SENDER_ID
     };
     firebase.initializeApp(config);
 } catch (e) {
