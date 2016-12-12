@@ -7,7 +7,9 @@ import {
     ADD_TODO,
     ADD_TODOS,
     TOGGLE_SHOW_COMPLETED,
-    UPDATE_TODO
+    UPDATE_TODO,
+    LOGIN,
+    LOGOUT
 } from './types';
 
 export const setSearchText = (searchText) => {
@@ -100,10 +102,24 @@ export const startLogin = () => {
     };
 };
 
+export const logIn = (user) => {
+    return {
+        type: LOGIN,
+        payload: user
+    };
+};
+
+
 export const startLogout = () => {
     return (dispatch) => {
         return firebase.auth().signOut().then(() => {
             console.log('logged out');
         });
+    };
+};
+
+export const logOut = () => {
+    return {
+        type: LOGOUT
     };
 };

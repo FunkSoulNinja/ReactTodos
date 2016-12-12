@@ -11,8 +11,10 @@ const store = require('./store/configureStore').configure();
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+        store.dispatch(actions.logIn(user));
         hashHistory.push('/todos');
     } else {
+        store.dispatch(actions.logOut());
         hashHistory.push('/');
     }
 

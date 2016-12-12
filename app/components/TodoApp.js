@@ -18,7 +18,6 @@ export class TodoApp extends Component {
                     <a href="#" onClick={this.onLogout.bind(this)}>Log out</a>
                 </div>
                 <h1 className="page-title">Todo App</h1>
-
                 <div className="row">
                     <div className="column small-centered small-11 medium-6 large-5">
                         <div className="container">
@@ -32,5 +31,11 @@ export class TodoApp extends Component {
         );
     }
 }
+
+// const mapStateToProps = (state) => {
+//     const user_image = state.auth.user.photoURL;
+//
+//     return { user_image };
+// };
 
 export default connect()(TodoApp);

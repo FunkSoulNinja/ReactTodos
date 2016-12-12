@@ -14,6 +14,7 @@ import {
 import {
     mainReducer,
 } from '../../reducers/index';
+import { authReducer } from '../../reducers/auth'
 
 describe('Reducers', () => {
     describe('searchTextReducer', () => {
@@ -90,6 +91,29 @@ describe('Reducers', () => {
 
             expect(res.todos.length).toEqual(1);
             expect(res.todos[0]).toEqual(todos[0]);
+        });
+    });
+
+    describe('Auth Reducer', () => {
+        it('should store user uid in state on LOGIN', () => {
+            const action = {
+                type: 'LOGIN',
+                payload: 'abc123'
+            };
+            const res = authReducer(undefined, df(action));
+
+            expect(res).toEqual({ uid: action.uid });
+        });
+        it('should clear user uid on LOGOUT ', () => {
+            const authData = {
+                uid: 'abc123'
+            };
+            const action = {
+                type: 'LOGOUT'
+            };
+            const res = authReducer(df(authData), df(action));
+
+            expect(res).toEqual({ uid: {} });
         });
     });
 });
