@@ -2,11 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Router, IndexRoute, hashHistory } from 'react-router';
-import $ from 'jquery';
 
 import TodoApp from 'TodoApp';
 import * as actions from './actions';
-import TodoAPI from './api/TodoAPI';
+import Login from './components/Login';
 
 const store = require('./store/configureStore').configure();
 
@@ -27,9 +26,19 @@ store.dispatch(actions.startAddTodos());
 // App styles
 require('style!css!sass!applicationStyles');
 
+// ReactDOM.render(
+//     <Provider store={store}>
+//         <TodoApp />
+//     </Provider>,
+//     document.getElementById('app')
 ReactDOM.render(
     <Provider store={store}>
-        <TodoApp />
+        <Router history={hashHistory}>
+            <Route path="/">
+                <Route path="Todos" component={TodoApp} />
+                <IndexRoute component={Login} />
+            </Route>
+        </Router>
     </Provider>,
     document.getElementById('app')
 );

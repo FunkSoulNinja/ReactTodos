@@ -6,7 +6,7 @@ const expect = require('expect');
 const $ = require('jquery');
 
 import { configure } from '../../store/configureStore';
-import TodoApp from 'TodoApp';
+import { TodoApp } from 'TodoApp';
 import TodoList from 'TodoList';
 
 describe('TodoApp', () => {
