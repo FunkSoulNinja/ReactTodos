@@ -12,6 +12,7 @@ const store = require('./store/configureStore').configure();
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         store.dispatch(actions.logIn(user));
+        store.dispatch(actions.startAddTodos());
         hashHistory.push('/todos');
     } else {
         store.dispatch(actions.logOut());
@@ -20,7 +21,6 @@ firebase.auth().onAuthStateChanged((user) => {
 
 });
 
-store.dispatch(actions.startAddTodos());
 
 // App styles
 require('style!css!sass!applicationStyles');
